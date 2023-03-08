@@ -67,7 +67,7 @@ class Saml2Controller extends Controller
             return redirect($redirectUrl);
         }
 
-        return redirect($auth->getTenant()->relay_state_url ?: config('saml2.loginRoute'));
+        return redirect($auth->getIdp()->relay_state_url ?: config('saml2.loginRoute'));
     }
 
     /**
@@ -113,7 +113,7 @@ class Saml2Controller extends Controller
      */
     public function login(Request $request, Auth $auth)
     {
-        $redirectUrl = $auth->getTenant()->relay_state_url ?: config('saml2.loginRoute');
+        $redirectUrl = $auth->getIdp()->relay_state_url ?: config('saml2.loginRoute');
 
         $auth->login($request->query('returnTo', $redirectUrl));
     }
