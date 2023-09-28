@@ -49,8 +49,11 @@ class Saml2Controller extends Controller
         $errors = $auth->acs();
 
         if (!empty($errors)) {
-            logger()->error('saml2.error_detail', ['error' => $auth->getLastErrorReason()]);
-            session()->flash('saml2.error_detail', [$auth->getLastErrorReason()]);
+            $error = $auth->getLastErrorReason();
+            $uuid = $auth->getTenant()->uuid;
+
+            logger()->error('saml2.error_detail', compact('uuid', 'error'));
+            session()->flash('saml2.error_detail', [$error]);
 
             logger()->error('saml2.error', $errors);
             session()->flash('saml2.error', $errors);
@@ -96,8 +99,11 @@ class Saml2Controller extends Controller
         $this->unsetRequest();
 
         if (!empty($errors)) {
-            logger()->error('saml2.error_detail', ['error' => $auth->getLastErrorReason()]);
-            session()->flash('saml2.error_detail', [$auth->getLastErrorReason()]);
+            $error = $auth->getLastErrorReason();
+            $uuid = $auth->getTenant()->uuid;
+
+            logger()->error('saml2.error_detail', compact('uuid', 'error'));
+            session()->flash('saml2.error_detail', [$error]);
 
             logger()->error('saml2.error', $errors);
             session()->flash('saml2.error', $errors);
