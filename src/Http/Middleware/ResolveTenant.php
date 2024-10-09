@@ -60,8 +60,6 @@ class ResolveTenant
             ]);
         }
 
-        session()->flash('saml2.tenant.uuid', $tenant->uuid);
-
         $this->builder
             ->withTenant($tenant)
             ->bootstrap();
